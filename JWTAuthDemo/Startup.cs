@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
+using JWTAuthDemo.Data;
 
 namespace JWTAuthDemo
 {
@@ -51,6 +53,9 @@ namespace JWTAuthDemo
                     };
                 }
                 );
+
+            services.AddDbContext<Context>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Context")));
 
             //services.AddMvc();
         }

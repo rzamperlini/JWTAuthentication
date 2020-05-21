@@ -27,7 +27,7 @@ namespace JWTAuthDemo.Controllers
 
         public IActionResult Login(string username, string pass)
         {
-            UserModel login = new UserModel();
+            User login = new User();
 
             login.UserName = username;
             login.Password = pass;
@@ -47,19 +47,19 @@ namespace JWTAuthDemo.Controllers
         }
 
        
-        private UserModel AuthenticateUser(UserModel login)
+        private User AuthenticateUser(User login)
         {
-            UserModel user = null;
+            User user = null;
 
             if(login.UserName == "rzamperlini" && login.Password == "123")
             {
-                user = new UserModel { UserName = login.UserName, EmailAddress = "rzamperlini@gmail.com", Password = login.Password };
+                user = new User { UserName = login.UserName, EmailAddress = "rzamperlini@gmail.com", Password = login.Password };
             }
 
             return user;
         }
 
-        private string GenerateJSONWebToken(UserModel userinfo)
+        private string GenerateJSONWebToken(User userinfo)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
